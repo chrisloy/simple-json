@@ -23,16 +23,16 @@ Okay, okay, you're being quite pushy. Here we go:
 import chrisloy.json._
 
 val json1 = Json.parse("""[1, 2, {"three" : 3}]""")
-// returns JsonArray(List(JsonNumber(1.0), JsonNumber(2.0), JsonObject(Map(three -> JsonNumber(3.0)))))
+// JsonArray(List(JsonNumber(1.0), JsonNumber(2.0), JsonObject(Map(three -> JsonNumber(3.0)))))
 
 val json2 = Json("a" -> 1, "b" -> "things", c -> -123.456)
-// returns JsonObject(Map(a -> JsonNumber(1.0), b -> JsonString(things), c -> JsonNumber(-123.456)))
+// JsonObject(Map(a -> JsonNumber(1.0), b -> JsonString(things), c -> JsonNumber(-123.456)))
 
 json1.render
-// returns a String: [1,2,{"three":3}]
+// String = [1,2,{"three":3}]
 
 json2.render
-// returns a String: {"a":1,"b":"things","c":-123.456}
+// String = {"a":1,"b":"things","c":-123.456}
 ```
 
 If you *really* want them, there are some implicits lying around to do this for you:
@@ -42,7 +42,7 @@ import chrisloy.json._
 import chrisloy.json.Json.Implicits._
 
 val magicks: JsonValue = "a" :: 2 :: "finally" :: Nil
-// returns JsonArray(List(JsonString(a), JsonNumber(2.0), JsonString(finally)))
+// JsonArray(List(JsonString(a), JsonNumber(2.0), JsonString(finally)))
 ```
 
 Hopefully that'll keep you quiet for now.
