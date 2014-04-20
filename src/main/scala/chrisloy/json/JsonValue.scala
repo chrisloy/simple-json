@@ -27,13 +27,17 @@ case class JsonNumber(value: Double) extends JsonValue {
   lazy val render = new java.text.DecimalFormat("#.######################").format(value)
 }
 
-case class JsonBoolean(value: Boolean) extends JsonValue {
+object JsonBoolean {
+  def apply(value: Boolean) = if (value) JsonTrue else JsonFalse
+}
+
+class JsonBoolean(value: Boolean) extends JsonValue {
   lazy val render = if (value) "true" else "false"
 }
 
-object JsonFalse extends JsonBoolean(false)
+case object JsonFalse extends JsonBoolean(false)
 
-object JsonTrue extends JsonBoolean(true)
+case object JsonTrue extends JsonBoolean(true)
 
 object JsonNull extends JsonValue {
   val render = "null"

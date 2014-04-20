@@ -4,12 +4,35 @@ import org.scalatest.{FlatSpec, MustMatchers}
 
 class JsonSpec extends FlatSpec with MustMatchers {
 
-  "Json" should "parse and render an empty array" in {
-    mirror("""[]""")
+  "Json.render" should "render an array with a single string" in {
+    JsonArray(JsonString("blah") :: Nil).render mustBe "[\"blah\"]"
   }
 
-  it should "render an array with a single string" in {
-    JsonArray(JsonString("blah") :: Nil).render mustBe "[\"blah\"]"
+  it should "render a map with some entries" in {
+    JsonObject(Map("x" -> JsonNumber(4), "y" -> JsonNumber(5))).render mustBe """{"x":4,"y":5}"""
+  }
+
+  "Json.apply" should "create a JsonString" in {
+    Json("things") mustBe JsonString("things")
+  }
+
+  it should "create a JsonNumber" in {
+    Json(123) mustBe JsonNumber(123.0)
+    Json(123.0F) mustBe JsonNumber(123.0)
+    Json(123L) mustBe JsonNumber(123.0)
+    Json(123.0D) mustBe JsonNumber(123.0)
+  }
+
+  it should "create a JsonObject" in {
+    Json(
+      "a" -> Nil,
+      "b" -> 123,
+      "c" -> "things"
+    ) mustBe JsonObject(Map("a" -> JsonArray(Nil), "b" -> JsonNumber(123), "c" -> JsonString("things")))
+  }
+
+  "Json.parse & Json.render" should "parse and render an empty array" in {
+    mirror("""[]""")
   }
 
   it should "parse and render an empty object" in {
