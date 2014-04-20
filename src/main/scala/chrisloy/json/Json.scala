@@ -5,7 +5,7 @@ package chrisloy.json
  */
 object Json {
 
-  private val parser = new Parser
+  private val parser = new JsonParser
 
   def parse(input: String): JsonValue = parser.parse(input)
 }
