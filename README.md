@@ -1,8 +1,8 @@
 Simple JSON
 ===========
 
-Build status:
 [![Build Status](https://travis-ci.org/chrisloy/simple-json.png?branch=master)](https://travis-ci.org/chrisloy/simple-json)
+[![Coverage Status](https://coveralls.io/repos/chrisloy/simple-json/badge.png)](https://coveralls.io/r/chrisloy/simple-json)
 
 You what?
 ---------
