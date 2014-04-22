@@ -1,3 +1,7 @@
+ScoverageSbtPlugin.instrumentSettings
+
+CoverallsPlugin.coverallsSettings
+
 name := "simple-scala"
 
 version := "0.1"
