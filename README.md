@@ -25,7 +25,7 @@ import chrisloy.json._
 val json1 = Json.parse("""[1, 2, {"three" : 3}]""")
 // JsonArray(List(JsonNumber(1.0), JsonNumber(2.0), JsonObject(Map(three -> JsonNumber(3.0)))))
 
-val json2 = Json("a" -> 1, "b" -> "things", c -> -123.456)
+val json2 = Json("a" -> 1, "b" -> "things", "c" -> -123.456)
 // JsonObject(Map(a -> JsonNumber(1.0), b -> JsonString(things), c -> JsonNumber(-123.456)))
 
 json1.render
