@@ -1,4 +1,4 @@
-package chrisloy.json
+package net.chrisloy.json
 
 import org.scalatest.{FlatSpec, MustMatchers}
 

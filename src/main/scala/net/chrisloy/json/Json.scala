@@ -1,4 +1,4 @@
-package chrisloy.json
+package net.chrisloy.json
 
 /**
  * Main entry point for parsing and creating JSON objects.
@@ -15,6 +15,7 @@ object Json {
   def apply(in: String): JsonString = JsonString(in)
   def apply(in: Boolean): JsonBoolean = JsonBoolean(in)
   def apply(in: Null) = JsonNull
+  def apply(in: Seq[Any]): JsonArray = JsonArray(in map Json.apply)
   def apply(in: Int): JsonNumber = JsonNumber(in)
   def apply(in: Float): JsonNumber = JsonNumber(in)
   def apply(in: Long): JsonNumber = JsonNumber(in)

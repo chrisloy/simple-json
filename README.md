@@ -11,12 +11,17 @@ Scala has lots of libraries for parsing, rendering, searching and transforming J
 How do I get it?
 ----------------
 
-Simple JSON isn't available in any public repository yet. So just download the source and build it that way.
+Simple JSON isn't available in any public repository yet. So just download the source and build it using SBT.
 
 Show me some code!
 ------------------
 
-Okay, okay, you're being quite pushy. Here we go:
+Okay, okay, you're being quite pushy. Here we go...
+
+Parsing and rendering
+---------------------
+
+All parsing and rendering is String-based:
 
 ```scala
 import chrisloy.json._
@@ -43,6 +48,13 @@ import chrisloy.json.Json.Implicits._
 val magicks: JsonValue = "a" :: 2 :: "finally" :: Nil
 // JsonArray(List(JsonString(a), JsonNumber(2.0), JsonString(finally)))
 ```
+
+Searching
+---------
+
+Searching is support via an XPath-like syntax:
+
+
 
 Hopefully that'll keep you quiet for now.
 

@@ -1,4 +1,4 @@
-package chrisloy.json
+package net.chrisloy.json
 
 object JsonValue {
   val q = "\""
@@ -6,7 +6,8 @@ object JsonValue {
 
 sealed trait JsonValue {
   def render: String
-  def quot(s: String) = s"${JsonValue.q}$s${JsonValue.q}"
+  def / (path: String): Option[JsonValue] = None
+  protected[this] def quot(s: String) = s"${JsonValue.q}$s${JsonValue.q}"
 }
 
 case class JsonArray(elems: Seq[JsonValue]) extends JsonValue {
@@ -17,6 +18,7 @@ case class JsonObject(fields: Map[String, JsonValue]) extends JsonValue {
   lazy val render = fields map {
     case (key, value) => s"${quot(key)}:${value.render}"
   } mkString ("{", ",", "}")
+  override def / (path: String): Option[JsonValue] = fields.get(path)
 }
 
 case class JsonString(value: String) extends JsonValue {
