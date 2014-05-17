@@ -6,7 +6,7 @@ object JsonValue {
 
 sealed trait JsonValue {
   def render: String
-  def / (path: String): Option[JsonValue] = None
+  def / (path: String): JsonValue = JsonUndefined
   protected[this] def quot(s: String) = s"${JsonValue.q}$s${JsonValue.q}"
 }
 
@@ -18,7 +18,7 @@ case class JsonObject(fields: Map[String, JsonValue]) extends JsonValue {
   lazy val render = fields map {
     case (key, value) => s"${quot(key)}:${value.render}"
   } mkString ("{", ",", "}")
-  override def / (path: String): Option[JsonValue] = fields.get(path)
+  override def / (path: String) = fields.get(path) getOrElse JsonUndefined
 }
 
 case class JsonString(value: String) extends JsonValue {
@@ -41,6 +41,10 @@ case object JsonFalse extends JsonBoolean(false)
 
 case object JsonTrue extends JsonBoolean(true)
 
-object JsonNull extends JsonValue {
+case object JsonNull extends JsonValue {
   val render = "null"
+}
+
+case object JsonUndefined extends JsonValue {
+  def render = throw new Exception("Cannot render undefined values!")
 }

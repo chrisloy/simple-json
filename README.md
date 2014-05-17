@@ -24,7 +24,7 @@ Parsing and rendering
 All parsing and rendering is String-based:
 
 ```scala
-import chrisloy.json._
+import net.chrisloy.json._
 
 val json1 = Json.parse("""[1, 2, {"three" : 3}]""")
 // JsonArray(List(JsonNumber(1.0), JsonNumber(2.0), JsonObject(Map(three -> JsonNumber(3.0)))))
@@ -42,8 +42,8 @@ json2.render
 If you *really* want them, there are some implicits lying around to do this for you:
 
 ```scala
-import chrisloy.json._
-import chrisloy.json.Json.Implicits._
+import net.chrisloy.json._
+import net.chrisloy.json.Json.Implicits._
 
 val magicks: JsonValue = "a" :: 2 :: "finally" :: Nil
 // JsonArray(List(JsonString(a), JsonNumber(2.0), JsonString(finally)))
@@ -52,9 +52,33 @@ val magicks: JsonValue = "a" :: 2 :: "finally" :: Nil
 Searching
 ---------
 
-Searching is support via an XPath-like syntax:
+Searching is support via an XPath-like syntax, which works on objects:
 
+```scala
+import net.chrisloy.json._
 
+val obj = Json("a" -> "oranges", "b" -> ("lemon" :: "lemon" :: Nil))
+// JsonObject(Map(a -> JsonString(oranges), b -> JsonArray(List(JsonString(lemon), JsonString(lemon)))))
+
+obj / "a"
+// JsonString(oranges)
+
+obj / "b"
+// JsonArray(List(JsonString(lemon), JsonString(lemon)))
+
+obj / "c"
+// JsonUndefined
+```
+
+This also works at arbitrary depth:
+
+```scala
+import net.chrisloy.json._
+
+val obj = Json("a" -> Map("b" -> Map("c" -> Map("d" -> "xyz"))))
+obj / "a" / "b" / "c" / "d"
+// JsonString(xyz)
+```
 
 Hopefully that'll keep you quiet for now.
 
@@ -62,6 +86,5 @@ What next?
 ----------
 
 Upcoming features:
- - searching JSON
  - transformation of JSON
  - all that other good stuff
