@@ -33,13 +33,15 @@ object JsonBoolean {
   def apply(value: Boolean) = if (value) JsonTrue else JsonFalse
 }
 
-class JsonBoolean(value: Boolean) extends JsonValue {
-  lazy val render = if (value) "true" else "false"
+sealed abstract class JsonBoolean(value: Boolean) extends JsonValue
+
+case object JsonFalse extends JsonBoolean(false) {
+  val render = "false"
 }
 
-case object JsonFalse extends JsonBoolean(false)
-
-case object JsonTrue extends JsonBoolean(true)
+case object JsonTrue extends JsonBoolean(true) {
+  val render = "true"
+}
 
 case object JsonNull extends JsonValue {
   val render = "null"
